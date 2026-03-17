@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATLAS Blog — Home</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      color: var(--color-text);
+    }
+    .hero h1 span { color: var(--color-accent); }
+    .hero p {
+      margin-top: 14px;
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .section-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+    .section-header a {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    /* ── Post list ── */
+    .post-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 48px;
+    }
+    .post-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .post-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .82rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 10px;
+    }
+    .post-meta time { white-space: nowrap; }
+    .post-tag {
+      background: var(--color-tag-bg);
+      color: var(--color-tag-text);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 600;
+    }
+    .post-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .post-card h3 a {
+      color: var(--color-text);
+    }
+    .post-card h3 a:hover {
+      color: var(--color-accent);
+    }
+    .post-excerpt {
+      font-size: .95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .read-more {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+    .read-more::after {
+      content: ' →';
+      transition: margin-left var(--transition);
+    }
+    .read-more:hover::after {
+      margin-left: 4px;
+    }
+
+    /* ── View All button ── */
+    .view-all-wrap {
+      text-align: center;
+      padding: 12px 0 60px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      font-size: .95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero { padding: 48px 0 36px; }
+      .hero h1 { font-size: 1.85rem; }
+      .post-card { padding: 22px 20px; }
+      .section-header { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">ATLAS<span>.</span></a>
+      <nav class="site-nav">
+        <a href="/" class="active">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Ideas, stories &amp; <span>insights</span></h1>
+      <p>A place for thoughtful writing on design, technology, and the craft of building things for the web.</p>
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  <main class="container">
+    <div class="section-header">
+      <h2>Recent Posts</h2>
+      <a href="/blog">View all posts →</a>
+    </div>
+
+    <ul class="post-list" id="post-list">
+      <!-- Posts are rendered by JS below -->
+    </ul>
+
+    <div class="view-all-wrap">
+      <a href="/blog" class="btn btn-primary">Browse All Articles</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 ATLAS Blog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sample blog data — replace with a real data source / API later
+    const posts = [
+      {
+        title: "Designing for Clarity: Lessons from Minimalist Interfaces",
+        excerpt: "Good design removes friction. Here's what I learned stripping away every unnecessary element until only the essential experience remained.",
+        date: "2026-03-15",
+        tag: "Design",
+        slug: "/blog/designing-for-clarity"
+      },
+      {
+        title: "A Practical Guide to CSS Container Queries",
+        excerpt: "Container queries change how we think about responsive components. This guide walks through real-world patterns you can start using today.",
+        date: "2026-03-10",
+        tag: "CSS",
+        slug: "/blog/css-container-queries"
+      },
+      {
+        title: "Why I Switched to a Simpler Tech Stack",
+        excerpt: "After years of chasing the latest frameworks, I rebuilt my projects with vanilla HTML, CSS, and JavaScript — and everything got better.",
+        date: "2026-03-05",
+        tag: "Opinion",
+        slug: "/blog/simpler-tech-stack"
+      },
+      {
+        title: "Understanding the Cascade in 2026",
+        excerpt: "Cascade layers, scope, and specificity have evolved. A deep dive into how modern CSS resolves style conflicts.",
+        date: "2026-02-28",
+        tag: "CSS",
+        slug: "/blog/understanding-the-cascade"
+      },
+      {
+        title: "Building Accessible Forms That Don't Feel Like Forms",
+        excerpt: "Accessibility and great UX aren't at odds. Here's how to build forms that are inclusive, intuitive, and beautifully simple.",
+        date: "2026-02-20",
+        tag: "Accessibility",
+        slug: "/blog/accessible-forms"
+      },
+      {
+        title: "The Art of Writing Technical Blog Posts",
+        excerpt: "Clear writing is clear thinking. Practical advice on structuring, editing, and publishing posts that developers actually want to read.",
+        date: "2026-02-14",
+        tag: "Writing",
+        slug: "/blog/writing-technical-posts"
+      },
+      {
+        title: "Performance Budgets: Keeping Your Site Fast",
+        excerpt: "A performance budget is a contract with your users. Learn how to set one up and stick to it across your entire development lifecycle.",
+        date: "2026-02-08",
+        tag: "Performance",
+        slug: "/blog/performance-budgets"
+      },
+      {
+        title: "Rethinking Navigation Patterns for Mobile",
+        excerpt: "Hamburger menus aren't the only option. Exploring alternative navigation paradigms that improve discoverability on small screens.",
+        date: "2026-02-01",
+        tag: "UX",
+        slug: "/blog/mobile-navigation"
+      },
+      {
+        title: "A Love Letter to Semantic HTML",
+        excerpt: "Before reaching for a div, consider what your markup really means. Semantic HTML improves accessibility, SEO, and developer experience.",
+        date: "2026-01-25",
+        tag: "HTML",
+        slug: "/blog/semantic-html"
+      },
+      {
+        title: "Color Systems That Scale",
+        excerpt: "Building a flexible color palette that works across light mode, dark mode, and everything in between without duplication.",
+        date: "2026-01-18",
+        tag: "Design",
+        slug: "/blog/color-systems"
+      }
+    ];
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr + "T00:00:00");
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    }
+
+    function renderPosts(data) {
+      const list = document.getElementById("post-list");
+      list.innerHTML = data.map(post => `
+        <li class="post-card">
+          <div class="post-meta">
+            <time datetime="${post.date}">${formatDate(post.date)}</time>
+            <span class="post-tag">${post.tag}</span>
+          </div>
+          <h3><a href="${post.slug}">${post.title}</a></h3>
+          <p class="post-excerpt">${post.excerpt}</p>
+          <a href="${post.slug}" class="read-more">Read more</a>
+        </li>
+      `).join("");
+    }
+
+    renderPosts(posts);
+  </script>
+
+</body>
+</html>
